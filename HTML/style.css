@@ -1,0 +1,46 @@
+#div1{
+    background-color: red;    
+}
+div{
+    /* background-color: aqua; */
+    padding: 5px;
+    margin: 10px;
+    border: 2px solid;
+    box-sizing: border-box;
+    margin-top: 10px;
+    /* width: 100px; */
+    margin-bottom: 15px;
+}
+
+#password[type="password"]{
+    margin-top: 10px;
+    background-color: red;
+};
+
+#password.border-10{
+    margin-top: 10px;
+    background-color: red;
+}
+
+.container.main{
+    background-color: green;
+}
+
+div p{
+    background-color: blue;
+}
+
+div + p{
+    background-color: green;
+}
+div>p{
+    background-color: red;
+}
+
+span~p{
+    background-color: yellow;
+}
+
+span+p{
+    background-color: aqua;
+}
