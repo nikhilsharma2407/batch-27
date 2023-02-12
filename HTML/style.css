@@ -44,3 +44,24 @@ span~p{
 span+p{
     background-color: aqua;
 }
+
+#pseudo:hover{
+    background-color: greenyellow;
+}
+
+input[type="password"]:focus{
+    background-color: red;
+}
+
+td{
+    border: 1px solid;
+}
+
+tr:nth-child(even){
+    background-color: grey;
+}
+thead{
+    position: sticky;
+    top: 5px;
+    
+}
