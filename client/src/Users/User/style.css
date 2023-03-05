@@ -1,0 +1,14 @@
+.user{
+    /* width: 300px; */
+    margin-bottom: 10px;
+}
+.user-card{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.profile{
+    margin-right: 20px;
+    border-radius: 50%;
+}

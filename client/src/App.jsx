@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import './App.css';
 // import ComponentA from './ComponentA';
 import FunctionComponent from './ComponentA/partial/FunctionComponent';
+import Users from './Users';
+
+import "bootstrap/dist/css/bootstrap.min.css"
 
 function App() {
   const [greeting, setGreeting] = useState('Learning React!!!');
@@ -9,9 +12,8 @@ function App() {
 
   return (
     <>
-      {showComponent ? <FunctionComponent msg={greeting} /> : <></>}
-      <button onClick={() => setGreeting("Learning Hooks!!!")}>Update Greeting</button>
-      <button onClick={()=>setShowComponent(!showComponent)}>{showComponent?"Hide Component":"Show Component"}</button>
+      {/* <button onClick={()=>setShowComponent(!showComponent)}>{showComponent?"Hide Component":"Show Component"}</button> */}
+      {showComponent ? <Users /> : <></>}
     </>
   );
 }
