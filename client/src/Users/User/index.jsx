@@ -9,7 +9,8 @@ function User({ userData }) {
     const fullName = `${title} ${firstName} ${lastName}`;
 
     return (
-        <Col sm={10} md={5} lg={{span:3, offset:1}}>
+        // 576px 768px 992px 1200px
+        <Col xs={10} sm={6} md={5} lg={4} xl={3}>
             <Card Card className='user' >
                 <Card.Body className='user-card'>
                     <img height="100px" className='profile' src={picture} alt="profile" />
