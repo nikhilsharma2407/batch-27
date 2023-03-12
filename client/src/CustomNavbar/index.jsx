@@ -3,9 +3,12 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import { Form, Button } from 'react-bootstrap'
 
-import { Link } from "react-router-dom"
+import { Link, useSearchParams } from "react-router-dom"
 
 function MyNavbar() {
+
+  const [,setSearch] = useSearchParams();
+  
   return (
     <Navbar expand="sm" bg="dark" variant="dark">
       <Container fluid>
@@ -21,6 +24,7 @@ function MyNavbar() {
           </Nav>
           <Form className="d-flex">
             <Form.Control
+              onChange={e=>setSearch({name:e.target.value})}
               type="search"
               placeholder="Search"
               className="me-2"
