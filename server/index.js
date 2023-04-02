@@ -1,7 +1,9 @@
 // import express from "express"; //ES6
 const express = require('express'); // CJS
 const app = express();
+const dbConnection = require('./dbConnection');
 const router = require("./routes/router");
+const userRouter = require("./routes/userRouter");
 const requestLogger = require("./utils/requestLogger");
 const errorHandler = require("./utils/errorHandler");
 
@@ -10,6 +12,7 @@ app.use(express.json());
 
 app.use(requestLogger);
 app.use('/test-api',router);
+app.use('/user',userRouter);
 app.use(errorHandler)
 
 app.listen(PORT, () => {

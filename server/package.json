@@ -9,6 +9,8 @@
   "author": "Nikhil",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.18.2"
+    "bcrypt": "^5.1.0",
+    "express": "^4.18.2",
+    "mongoose": "^7.0.3"
   }
 }
