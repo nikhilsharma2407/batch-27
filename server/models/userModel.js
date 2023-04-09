@@ -23,7 +23,9 @@ const userSchema = new Schema({
             message: (data) => 'Passoword should be atleast 8 characters!!!'
 
         }
-    }
+    },
+    secret:String,
+    friendList:[String]
 });
 
 userSchema.statics.createUser = async (userdata) => {
@@ -43,6 +45,32 @@ userSchema.statics.findUser = async (username) => {
         throw err;
     }
 }
+
+userSchema.statics.updateFriend = async (username, id, addFriend = true) => {
+    let data;
+    if (addFriend)
+      data = await UserModel.updateOne({ username }, { $addToSet: { friendList: id } });
+    else {
+      data = await UserModel.updateOne({ username }, { $pull: { friendList: id } });
+    }
+    console.log(data);
+    if (data.modifiedCount || data.matchedCount) {
+      return UserModel.findUser(username);
+    }
+    errorCreator("Something went wrong!!!");
+  };
+  
+userSchema.statics.updateUser = async (username,data)=>{
+const updateData = await UserModel.updateOne({username},{
+    $set:{...data}
+});
+if(updateData.modifiedCount){
+    return true
+}else{
+    errorCreator("Something went wrong!!!");
+}
+}
+
 
 const UserModel = mongoose.model('users', userSchema);
 module.exports = UserModel;

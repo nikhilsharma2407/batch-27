@@ -1,6 +1,11 @@
 // import express from "express"; //ES6
 const express = require('express'); // CJS
 const app = express();
+const dotenv = require("dotenv");
+const cookieParser = require("cookie-parser");
+
+dotenv.config();
+
 const dbConnection = require('./dbConnection');
 const router = require("./routes/router");
 const userRouter = require("./routes/userRouter");
@@ -9,7 +14,7 @@ const errorHandler = require("./utils/errorHandler");
 
 const PORT = 4000;
 app.use(express.json());
-
+app.use(cookieParser());
 app.use(requestLogger);
 app.use('/test-api',router);
 app.use('/user',userRouter);

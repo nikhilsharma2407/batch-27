@@ -3,9 +3,9 @@ const QRCode = require('qrcode');
 
 const generateQRCode = async () => {
     const { base32: secret, otpauth_url } = speakeasy.generateSecret({ name: 'GeeksForGeeks' });
-    console.log(secret);
-    const data = await QRCode.toDataURL(otpauth_url);
-    console.log(data);
+    const qrcode = await QRCode.toDataURL(otpauth_url);
+    console.log({secret});
+    return {secret,qrcode}
 };
 const verifyOTP = (otp,secret) => {
     return speakeasy.totp.verify({

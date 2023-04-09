@@ -1,0 +1,46 @@
+{
+  "type": "excalidraw",
+  "version": 2,
+  "source": "https://excalidraw.com",
+  "elements": [
+    {
+      "id": "pf8v-JB9FTKZENVzRhtiP",
+      "type": "text",
+      "x": 612.2740168419209,
+      "y": 4058.0206523363604,
+      "width": 740.400390625,
+      "height": 299,
+      "angle": 0,
+      "strokeColor": "#000000",
+      "backgroundColor": "transparent",
+      "fillStyle": "hachure",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "groupIds": [],
+      "roundness": null,
+      "seed": 854015379,
+      "version": 525,
+      "versionNonce": 1374610237,
+      "isDeleted": false,
+      "boundElements": null,
+      "updated": 1681058739788,
+      "link": null,
+      "locked": false,
+      "text": "Persist storage in browser - \nsessionStorage - data is gone, if you close the tab.\n\nlocalStorage - shared across all tabs, common for browser even in new window.\n\nany running script would be able to access it\nits not secure\n\n\ncookies - have a expiry date, cookies are always shared with the request, by default\nthey have security flags, \nhttpOnly flag - data will not be accessible at all through javascript\n    ",
+      "fontSize": 20,
+      "fontFamily": 2,
+      "textAlign": "left",
+      "verticalAlign": "top",
+      "containerId": null,
+      "originalText": "Persist storage in browser - \nsessionStorage - data is gone, if you close the tab.\n\nlocalStorage - shared across all tabs, common for browser even in new window.\n\nany running script would be able to access it\nits not secure\n\n\ncookies - have a expiry date, cookies are always shared with the request, by default\nthey have security flags, \nhttpOnly flag - data will not be accessible at all through javascript\n    ",
+      "lineHeight": 1.15
+    }
+  ],
+  "appState": {
+    "gridSize": null,
+    "viewBackgroundColor": "#ffffff"
+  },
+  "files": {}
+}

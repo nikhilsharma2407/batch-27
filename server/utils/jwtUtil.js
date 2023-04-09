@@ -1,6 +1,7 @@
-const { sign, verify, decode } = require("jsonwebtoken")
+const { sign, verify, decode } = require("jsonwebtoken");
+const { errorCreator } = require("./responseHandler");
 
-const SECRET_KEY = 'MySecretKey';
+const SECRET_KEY = process.env.SECRET_KEY;
 
 const generateToken = (data) => {
     console.log({data});
@@ -10,13 +11,13 @@ const generateToken = (data) => {
 };
 
 const verifyToken = (token)=>{
-    try {
+        console.log(token);
+        if(!token){
+            errorCreator('Token missing, Please login again to continue',401);
+        }
         const verified = verify(token,SECRET_KEY);
         console.log(verified);
         return verified
-    } catch (error) {
-        console.log(error);
-    }
 }
 
 module.exports = {generateToken,verifyToken}
