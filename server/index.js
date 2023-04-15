@@ -2,6 +2,7 @@
 const express = require('express'); // CJS
 const app = express();
 const dotenv = require("dotenv");
+const cors = require("cors");
 const cookieParser = require("cookie-parser");
 
 dotenv.config();
@@ -12,7 +13,12 @@ const userRouter = require("./routes/userRouter");
 const requestLogger = require("./utils/requestLogger");
 const errorHandler = require("./utils/errorHandler");
 
+
 const PORT = 4000;
+app.use(cors({
+    origin: "http://localhost:3000",
+    // credentials:true
+}))
 app.use(express.json());
 app.use(cookieParser());
 app.use(requestLogger);

@@ -12,6 +12,7 @@ import MyNavbar from './CustomNavbar';
 import Login from './Login';
 import Signup from './Signup';
 import Routing from './Routing';
+import Counter from './Counter';
 
 function App() {
   const [greeting, setGreeting] = useState('Learning React!!!');
@@ -24,6 +25,7 @@ function App() {
         <Routes>
           <Route path='' element={showComponent ? <Users /> : <></>} />
           <Route path='/routing' element={<Routing />} />
+          <Route path='/counter' Component={Counter} />
           <Route path='/user'>
             <Route path='login' element={<Login />} />
             <Route path='signup' element={<Signup />} />

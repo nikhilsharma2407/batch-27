@@ -136,4 +136,10 @@ const removeFriend = async (req, res, next) => {
     }
 };
 
-module.exports = { signup, login, authMiddleware, loginWithCookie, resetPassword, addFriend, removeFriend };
+const logout = async (req,res,next)=>{
+    res.clearCookie('token');
+    res.send(responseCreator("User logged out successfully!!!"))
+}
+
+
+module.exports = { signup, login, logout,authMiddleware, loginWithCookie, resetPassword, addFriend, removeFriend };
