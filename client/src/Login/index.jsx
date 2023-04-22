@@ -1,21 +1,28 @@
 import { Button, Form, Container, Row, Col, Card } from 'react-bootstrap';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { loginApi } from './apiUtil';
 import { useDispatch, useSelector } from 'react-redux'
 import { loginActionCreator } from '../reducers/userReducer';
+import {useLocation, useNavigate} from "react-router-dom"
 
 
 function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const data = useSelector(({ count, user }) => user);
+  const {name} = useSelector(({user }) => user);
 
   const dispatch = useDispatch();
 
-  console.log('userRedcuer data', data);
+
+  const {state:redirectTo} = useLocation() || {};
+
 
   const login = () => {
     dispatch(loginActionCreator({ username, password }));
+    if(redirectTo){
+      console.log(redirectTo);
+      // useNavigate(redirectTo)
+    }
   }
 
   return (

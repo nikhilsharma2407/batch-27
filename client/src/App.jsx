@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.css';
 // import ComponentA from './ComponentA';
 import FunctionComponent from './ComponentA/partial/FunctionComponent';
@@ -13,15 +13,32 @@ import Login from './Login';
 import Signup from './Signup';
 import Routing from './Routing';
 import Counter from './Counter';
+import Toast  from './Toast';
+import LoadingComponent from './LoadingComponent';
+import { loginWithCookieActionCreator } from './reducers/userReducer';
+import { useDispatch } from "react-redux"
+
 
 function App() {
   const [greeting, setGreeting] = useState('Learning React!!!');
   const [showComponent, setShowComponent] = useState(true);
 
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(loginWithCookieActionCreator())
+  
+    
+  }, [])
+  
+
+
   return (
     <>
       <BrowserRouter>
         <MyNavbar />
+        <Toast />
+        <LoadingComponent />
         <Routes>
           <Route path='' element={showComponent ? <Users /> : <></>} />
           <Route path='/routing' element={<Routing />} />

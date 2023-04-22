@@ -1,14 +1,17 @@
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
+import { useSelector, useDispatch } from "react-redux"
 import { Form, Button } from 'react-bootstrap'
 
 import { Link, useSearchParams } from "react-router-dom"
+import { logoutActionCreator } from '../reducers/userReducer';
 
 function MyNavbar() {
+  const { username } = useSelector(({ user }) => user)
+  const dispatch = useDispatch()
+  const [, setSearch] = useSearchParams();
 
-  const [,setSearch] = useSearchParams();
-  
   return (
     <Navbar expand="sm" bg="dark" variant="dark">
       <Container fluid>
@@ -20,12 +23,17 @@ function MyNavbar() {
             <Nav.Link as={Link} to='/counter'>Counter</Nav.Link>
           </Nav>
           <Nav>
-            <Nav.Link as={Link} to='/user/login'>Login</Nav.Link>
-            <Nav.Link as={Link} to='/user/signup'>Signup</Nav.Link>
+            {username ? <Nav.Link as={Button} variant='outline' onClick={() => dispatch(logoutActionCreator())} >Logout</Nav.Link> :
+              <>
+                <Nav.Link as={Link} to='/user/login'>Login</Nav.Link>
+                <Nav.Link as={Link} to='/user/signup'>Signup</Nav.Link>
+              </>
+            }
+
           </Nav>
           <Form className="d-flex">
             <Form.Control
-              onChange={e=>setSearch({name:e.target.value})}
+              onChange={e => setSearch({ name: e.target.value })}
               type="search"
               placeholder="Search"
               className="me-2"
