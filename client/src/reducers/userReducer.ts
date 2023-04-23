@@ -1,31 +1,49 @@
 import { addFriendApi, loginApi, loginWithCookieApi, logoutApi, removeFriendApi } from "../Login/apiUtil";
 
-const initialState = {
+
+export interface IState {
+    friendList: string[];
+    name: string
+    username: string
+    message: string
+    success: boolean
+    loading: boolean | null
+    isLoggedIn: boolean | null
+    usersLoading: boolean
+}
+
+export type IUserReducer = (state: IState, action: { type: string, payload: any }) => IState
+
+
+const initialState: IState = {
     friendList: [],
     name: '',
     username: '',
     message: '',
     success: false,
-    loading:false,
+    loading: null,
+    isLoggedIn: null,
+    usersLoading: false,
 };
 
-const ACTIONS = {
-    SIGNUP: 'SIGNUP',
-    LOGIN: 'LOGIN',
-    LOGOUT: 'LOGOUT',
-    ADD_FRIEND: 'ADD_FRIEND',
-    REMOVE_FRIEND: 'REMOVE_FRIEND',
-    ERROR: 'ERROR',
-    RESET_MSG:'RESET_MSG',
-    LOADING:'LOADING',
+enum ACTIONS {
+    SIGNUP = 'SIGNUP',
+    LOGIN = 'LOGIN',
+    LOGOUT = 'LOGOUT',
+    ADD_FRIEND = 'ADD_FRIEND',
+    REMOVE_FRIEND = 'REMOVE_FRIEND',
+    ERROR = 'ERROR',
+    RESET_MSG = 'RESET_MSG',
+    LOADING = 'LOADING',
+    USERS_LOADING = 'USERS_LOADING',
 }
 
-export const loadingActionCreator= (payload)=>({type:ACTIONS.LOADING,payload})
-const resetMsgActionCreator= ()=>({type:ACTIONS.RESET_MSG})
+export const loadingActionCreator = (payload) => ({ type: ACTIONS.LOADING, payload })
+const resetMsgActionCreator = () => ({ type: ACTIONS.RESET_MSG })
 
 
 // Must return a function
-const asyncActionCreator = (apiHelperFn, action, apiPayload) => {
+const asyncActionCreator = (apiHelperFn, action, apiPayload?) => {
     return async (dispatch) => {
         // dispatch({type:ACTIONS.RESET_MSG})
         try {
@@ -39,7 +57,7 @@ const asyncActionCreator = (apiHelperFn, action, apiPayload) => {
             const { message } = error.response.data
             console.log(error);
             dispatch({ type: ACTIONS.ERROR, payload: { sucess: false, message } })
-        } finally{
+        } finally {
             dispatch(loadingActionCreator(false))
         }
     }
@@ -70,15 +88,21 @@ export const logoutActionCreator = () => {
     return asyncActionCreator(logoutApi, action);
 }
 
-export const userReducer = (state = initialState, action) => {
+
+export const usersLoadingActionCreator = (payload) => {
+    return { type: ACTIONS.USERS_LOADING, payload };
+}
+
+
+export const userReducer: IUserReducer = (state = initialState, action) => {
     const { success, message, data } = action.payload || {}
     switch (action.type) {
         case ACTIONS.LOGIN:
             const { name, username, friendList } = data;
-            return { ...state, name, username, friendList, success, message };
+            return { ...state, name, username, friendList, success, message, isLoggedIn: true };
 
         case ACTIONS.ADD_FRIEND:
-            return { ...state, success, message, friendList: data }
+            return { ...state, success, message, friendList: data, }
 
         case ACTIONS.REMOVE_FRIEND:
             return { ...state, success, message, friendList: data }
@@ -90,10 +114,14 @@ export const userReducer = (state = initialState, action) => {
             return initialState;
 
         case ACTIONS.RESET_MSG:
-            return {...state,message:''}
+            return { ...state, message: '' }
 
         case ACTIONS.LOADING:
-            return {...state,loading:action.payload}
+            return { ...state, loading: action.payload }
+
+        case ACTIONS.USERS_LOADING:
+            return { ...state, usersLoading: action.payload }
+
         default:
             return state
     }

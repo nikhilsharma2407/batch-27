@@ -2,7 +2,7 @@ import { Button, Form, Container, Row, Col, Card } from 'react-bootstrap';
 import React, { useEffect, useState } from 'react'
 import { loginApi } from './apiUtil';
 import { useDispatch, useSelector } from 'react-redux'
-import { loginActionCreator } from '../reducers/userReducer';
+import { loginActionCreator } from '../reducers/userReducer.ts';
 import {useLocation, useNavigate} from "react-router-dom"
 
 

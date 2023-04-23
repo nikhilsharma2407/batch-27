@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './App.css';
 // import ComponentA from './ComponentA';
 import FunctionComponent from './ComponentA/partial/FunctionComponent';
-import Users from './Users';
+import Users from './Users/index.tsx';
 
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom"
 
@@ -13,24 +13,24 @@ import Login from './Login';
 import Signup from './Signup';
 import Routing from './Routing';
 import Counter from './Counter';
-import Toast  from './Toast';
+import Toast from './Toast';
 import LoadingComponent from './LoadingComponent';
-import { loginWithCookieActionCreator } from './reducers/userReducer';
-import { useDispatch } from "react-redux"
+import { loginWithCookieActionCreator } from './reducers/userReducer.ts';
+import { useDispatch, useSelector } from "react-redux"
+import ProtectedRoute from './ProtectedRoute';
 
 
 function App() {
   const [greeting, setGreeting] = useState('Learning React!!!');
   const [showComponent, setShowComponent] = useState(true);
 
-  const dispatch = useDispatch()
-
+  const dispatch = useDispatch();
+  const { isLoggedIn, loading } = useSelector(({ user }) => user)
+  debugger;
   useEffect(() => {
-    dispatch(loginWithCookieActionCreator())
-  
-    
+    dispatch(loginWithCookieActionCreator());
   }, [])
-  
+
 
 
   return (
@@ -40,7 +40,12 @@ function App() {
         <Toast />
         <LoadingComponent />
         <Routes>
-          <Route path='' element={showComponent ? <Users /> : <></>} />
+          {loading === false ? (<Route path='' element={<ProtectedRoute isLoggedIn={isLoggedIn}>
+            <Users />
+          </ProtectedRoute>} />) : <></>}
+
+
+
           <Route path='/routing' element={<Routing />} />
           <Route path='/counter' Component={Counter} />
           <Route path='/user'>

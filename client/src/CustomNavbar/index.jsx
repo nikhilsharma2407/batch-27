@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from "react-redux"
 import { Form, Button } from 'react-bootstrap'
 
 import { Link, useSearchParams } from "react-router-dom"
-import { logoutActionCreator } from '../reducers/userReducer';
+import { logoutActionCreator } from '../reducers/userReducer.ts';
 
 function MyNavbar() {
   const { username } = useSelector(({ user }) => user)
