@@ -3,10 +3,10 @@ import { Navigate } from 'react-router-dom'
 
 
 function ProtectedRoute({ children, isLoggedIn, loading }) {
-  debugger;
+  const redirectPath = '/';
   if (!isLoggedIn) {
 
-    return <Navigate to='/user/login' />
+    return <Navigate to='/path/login' state={ {redirectPath} }/>
   }
   return children
 

@@ -23,9 +23,9 @@ function Users() {
 
     useEffect(() => {
         (async () => {
-            dispatch(usersLoadingActionCreator(true))
+            dispatch(loadingActionCreator(true))
             const { data } = (await instance.get()).data;
-            dispatch(usersLoadingActionCreator(false))
+            dispatch(loadingActionCreator(false))
             console.log(data);
             setUsers(data);
         })()

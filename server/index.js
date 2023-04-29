@@ -4,6 +4,7 @@ const app = express();
 const dotenv = require("dotenv");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
+const path = require('path');
 
 dotenv.config();
 
@@ -14,16 +15,25 @@ const requestLogger = require("./utils/requestLogger");
 const errorHandler = require("./utils/errorHandler");
 
 
-const PORT = 4000;
+const PORT = process.env.PORT || 4000;
 app.use(cors({
     origin: "http://localhost:3000",
     credentials:true
 }))
 app.use(express.json());
 app.use(cookieParser());
+
+// used to static serve a directory
+app.use('/',express.static('./build/'))
+
 app.use(requestLogger);
 app.use('/test-api',router);
 app.use('/user',userRouter);
+
+// used to handle react-routing
+app.get('*',(req,res)=>{
+    res.sendFile(path.join(__dirname,'./build/index.html'))
+})
 app.use(errorHandler)
 
 app.listen(PORT, () => {

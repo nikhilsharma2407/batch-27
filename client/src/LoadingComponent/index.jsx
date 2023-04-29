@@ -4,8 +4,8 @@ import Spinner from 'react-bootstrap/Spinner';
 import './style.css'
 
 function LoadingComponent() {
-    const { loading, usersLoading } = useSelector(({ user }) => user);
-    if (loading || usersLoading) {
+    const { loading, isLoggedIn } = useSelector(({ user }) => user);
+    if (loading) {
         return <Spinner className='spinner' animation="border" role="status" />
     }
     return <></>

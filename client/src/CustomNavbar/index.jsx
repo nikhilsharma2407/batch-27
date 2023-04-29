@@ -25,8 +25,8 @@ function MyNavbar() {
           <Nav>
             {username ? <Nav.Link as={Button} variant='outline' onClick={() => dispatch(logoutActionCreator())} >Logout</Nav.Link> :
               <>
-                <Nav.Link as={Link} to='/user/login'>Login</Nav.Link>
-                <Nav.Link as={Link} to='/user/signup'>Signup</Nav.Link>
+                <Nav.Link as={Link} to='/path/login'>Login</Nav.Link>
+                <Nav.Link as={Link} to='/path/signup'>Signup</Nav.Link>
               </>
             }
 

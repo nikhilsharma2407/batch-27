@@ -9,20 +9,25 @@ import {useLocation, useNavigate} from "react-router-dom"
 function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const {name} = useSelector(({user }) => user);
+  const {isLoggedIn} = useSelector(({user }) => user);
 
   const dispatch = useDispatch();
 
 
-  const {state:redirectTo} = useLocation() || {};
+  const {state,pathname} = useLocation() || {};
+  const navigate = useNavigate();
+  console.log('getting the current path',pathname,state)
+
+  useEffect(() => {
+    if(isLoggedIn && state?.redirectPath){
+      navigate(state?.redirectPath);
+    }    
+  }, [isLoggedIn])
+  
 
 
   const login = () => {
     dispatch(loginActionCreator({ username, password }));
-    if(redirectTo){
-      console.log(redirectTo);
-      // useNavigate(redirectTo)
-    }
   }
 
   return (

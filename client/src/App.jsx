@@ -23,10 +23,9 @@ import ProtectedRoute from './ProtectedRoute';
 function App() {
   const [greeting, setGreeting] = useState('Learning React!!!');
   const [showComponent, setShowComponent] = useState(true);
-
   const dispatch = useDispatch();
   const { isLoggedIn, loading } = useSelector(({ user }) => user)
-  debugger;
+
   useEffect(() => {
     dispatch(loginWithCookieActionCreator());
   }, [])
@@ -40,7 +39,7 @@ function App() {
         <Toast />
         <LoadingComponent />
         <Routes>
-          {loading === false ? (<Route path='' element={<ProtectedRoute isLoggedIn={isLoggedIn}>
+          {isLoggedIn !== null ? (<Route path='' element={<ProtectedRoute isLoggedIn={isLoggedIn}>
             <Users />
           </ProtectedRoute>} />) : <></>}
 
@@ -48,7 +47,7 @@ function App() {
 
           <Route path='/routing' element={<Routing />} />
           <Route path='/counter' Component={Counter} />
-          <Route path='/user'>
+          <Route path='/path'>
             <Route path='login' element={<Login />} />
             <Route path='signup' element={<Signup />} />
           </Route>
