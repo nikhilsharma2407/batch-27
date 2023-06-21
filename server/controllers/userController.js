@@ -17,11 +17,12 @@ const signup = async (req, res, next) => {
         const userCreatedData = await UserModel.createUser(userData);
         res.status(201);
         if (userCreatedData) {
-            res.send(`
-            <h1>user ${userData.username} created successfully!!!</h1>
-            <h1>Two Factor authentication setup</h1>
-            <h2>Please scan the QR code with Google Authenticator</h2>
-            <img src="${qrcode}"/>`);
+            res.send(responseCreator(`user ${userData.username} created successfully!!!`,qrcode));
+            // res.send(`
+            // <h1>user ${userData.username} created successfully!!!</h1>
+            // <h1>Two Factor authentication setup</h1>
+            // <h2>Please scan the QR code with Google Authenticator</h2>
+            // <img src="${qrcode}"/>`);
         }
     }
     catch (error) {

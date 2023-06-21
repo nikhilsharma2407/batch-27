@@ -1,0 +1,8 @@
+.forgot-pwd{
+    display: flex;
+    /* margin-left: auto; */
+    justify-content: end;
+    color: #0d6efd;
+    font-size: 0.9rem;
+    cursor: pointer;
+}

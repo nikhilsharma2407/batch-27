@@ -1,4 +1,4 @@
-import { addFriendApi, loginApi, loginWithCookieApi, logoutApi, removeFriendApi } from "../Login/apiUtil";
+import { addFriendApi, loginApi, loginWithCookieApi, logoutApi, removeFriendApi, resetPasswordApi, signupApi } from "../Login/apiUtil";
 
 
 export interface IState {
@@ -10,6 +10,7 @@ export interface IState {
     loading: boolean | null
     isLoggedIn: boolean | null
     usersLoading: boolean
+    qrCode?: string
 }
 
 export type IUserReducer = (state: IState, action: { type: string, payload: any }) => IState
@@ -36,6 +37,7 @@ enum ACTIONS {
     RESET_MSG = 'RESET_MSG',
     LOADING = 'LOADING',
     IS_LOGGED_IN = 'IS_LOGGED_IN',
+    RESET = 'RESET'
 }
 
 export const loadingActionCreator = (payload) => ({ type: ACTIONS.LOADING, payload })
@@ -96,6 +98,16 @@ export const isLoggedInActionCreator = (payload) => {
     return { type: ACTIONS.IS_LOGGED_IN, payload };
 }
 
+export const resetActionCreator = (apiPayload) => {
+    const action = { type: ACTIONS.RESET };
+    return asyncActionCreator(resetPasswordApi, action, apiPayload);
+}
+
+export const signupActionCreator = (apiPayload) => {
+    const action = { type: ACTIONS.SIGNUP };
+    return asyncActionCreator(signupApi, action, apiPayload);
+}
+
 
 export const userReducer: IUserReducer = (state = initialState, action) => {
     const { success, message, data } = action.payload || {}
@@ -103,7 +115,8 @@ export const userReducer: IUserReducer = (state = initialState, action) => {
         case ACTIONS.LOGIN:
             const { name, username, friendList } = data;
             return { ...state, name, username, friendList, success, message, isLoggedIn: true };
-
+        case ACTIONS.SIGNUP:
+            return { ...state, success, message, qrCode: data }
         case ACTIONS.ADD_FRIEND:
             return { ...state, success, message, friendList: data, }
 
@@ -114,7 +127,7 @@ export const userReducer: IUserReducer = (state = initialState, action) => {
             return { ...state, message, success };
 
         case ACTIONS.LOGOUT:
-            return {initialState,isLoggedIn:false};
+            return { initialState, isLoggedIn: false };
 
         case ACTIONS.RESET_MSG:
             return { ...state, message: '' }
@@ -124,7 +137,8 @@ export const userReducer: IUserReducer = (state = initialState, action) => {
 
         case ACTIONS.IS_LOGGED_IN:
             return { ...state, isLoggedIn: action.payload }
-
+        case ACTIONS.RESET:
+            return { ...state, success, message }
         default:
             return state
     }
