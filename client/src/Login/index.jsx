@@ -24,7 +24,7 @@ function Login() {
 
   useEffect(() => {
     if (isLoggedIn && state?.redirectPath) {
-      navigate(state?.redirectPath);
+      navigate('/');
     }
   }, [isLoggedIn])
 
