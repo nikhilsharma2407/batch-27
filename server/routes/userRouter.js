@@ -10,8 +10,13 @@ router.patch('/removeFriend', authMiddleware, removeFriend);
 router.patch('/reset', resetPassword);
 router.get('/logout', logout);
 router.get('/purgeDB', async(req,res,next)=>{
-    const data = await UserModel.collection.drop();
-    res.send(data);
+    try{
+        const data = await UserModel.collection.drop();
+        res.send(data);    
+    }catch(err){
+        next(err);
+    }
+    
 });
 
 module.exports = router
